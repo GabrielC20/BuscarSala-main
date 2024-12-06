@@ -88,6 +88,10 @@ def pavilhao (request,numero_pavilhao):
     
     return render (request,'pavilhao.html',{'salas':salas,'numero_pavilhao':numero_pavilhao })
 
+def area_saude(request):
+    salas_saude = Sala.objects.filter(area='saude')  # Filtra as salas da área de saúde
+    return render(request, 'area_saude.html', {'salas': salas_saude})
+
 
 def deslogar(request):
     logout(request)
