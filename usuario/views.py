@@ -3,6 +3,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
+from .models import Sala
 
 def login_view(request):
     if request.method == 'POST':
@@ -27,6 +28,12 @@ def painel_view(request):
         
         print(video,sala,curso,turma)
     return render(request, 'painel.html')
+
+
+def pavilhao_view(request, pavilhao_id):
+    salas = Sala.objects.filter(pavilhao=str(pavilhao_id))
+    context = {'salas': salas, 'pavilhao': pavilhao_id}
+    return render(request, 'pavilhao.html', context)
 
 
 def admin_template_view(request):

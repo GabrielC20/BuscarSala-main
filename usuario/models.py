@@ -10,18 +10,20 @@ class Curso (models.Model):
     def __str__(self):
         return self.nome
 
-class Sala (models.Model):
+class Sala(models.Model):
     PAVILHAO_CHOICES = [
         ('1', 'Pavilhão 01'),
         ('2', 'Pavilhão 02'),
+        ('3', 'Área da Saúde'),
     ]
 
-    pavilhao = models.CharField(max_length=1,choices=PAVILHAO_CHOICES)    
+    pavilhao = models.CharField(max_length=1, choices=PAVILHAO_CHOICES)
     numero = models.IntegerField()
     url = models.CharField(max_length=250)
     
-    def __str__(self) :
-        return f'Sala N°{self.numero} | Pavilhão N° {self.pavilhao}'
+    def __str__(self):
+        return f'Sala N°{self.numero} | {self.get_pavilhao_display()}'
+
     
 class Dias (models.Model):
     
