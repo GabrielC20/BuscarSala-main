@@ -19,6 +19,13 @@ body {
     flex-direction: column;
     min-height: 100vh;
 }
+
+.pricipal-video{
+    display: flex!important;
+    justify-content: center!important;
+    align-items: center!important;
+    flex-direction: column!important;
+}
 .logo-facemp {
     display: flex;
     justify-content: center;
@@ -62,7 +69,7 @@ body {
     margin-top: 20px;
 }
 .btn {
-    width: 50%;
+    width: 70%;
     height: 70px;
     line-height: 50px;
 }
@@ -125,6 +132,13 @@ body {
         width: 100px;
     }
 }
+
+@media (max-width: 768px) {
+ .bnt-video{
+    width: 70%;
+ }
+}
+
 
 /* Estilos do cabeçalho */
 .logo-facemp {

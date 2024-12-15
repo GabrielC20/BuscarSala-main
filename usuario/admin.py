@@ -1,26 +1,27 @@
-# admin.py
-
 from django.contrib import admin
-from .models import Contador, Sala, Curso, RegistroCurso,AtivarPesquisaSalas,CronogramaSala,Dias
+from .models import Contador, Sala, Curso, RegistroCurso, AtivarPesquisaSalas, CronogramaSala, Dias
 from django.contrib.auth.models import User, Group
 from .forms import DiasForm
 from django.db.models import Count
-
-
-
+from .models import Sala
 from django.core.exceptions import ValidationError
-
-
 
 # Removendo os modelos User e Group do painel de administração
 admin.site.unregister(User)
 admin.site.unregister(Group)
 
 class SalaAdmin(admin.ModelAdmin):
-    list_display = ('numero', 'pavilhao')
-    list_filter = ('pavilhao','numero')
-    search_fields = ('numero', 'url')
-    search_help_text = 'Busque aqui por numero da sala.'
+    list_display = ('numero', 'pavilhao', 'nome_personalizado', 'url')  # Nome personalizado
+    search_fields = ('numero', 'pavilhao', 'nome_personalizado')
+    list_filter = ('pavilhao',)
+    fieldsets = (
+        (None, {
+            'fields': ('pavilhao', 'numero', 'url', 'nome_personalizado'),
+        }),
+    )
+
+# Registrando o modelo Sala uma vez
+admin.site.register(Sala, SalaAdmin)
 
 class CursoAdmin(admin.ModelAdmin):
     list_display = ('nome',)
@@ -51,7 +52,6 @@ class AtivarPesquisaSalasAdmin(admin.ModelAdmin):
         super().save_model(request, obj, form, change)
 
 admin.site.register(AtivarPesquisaSalas, AtivarPesquisaSalasAdmin)
-admin.site.register(Sala, SalaAdmin)
 admin.site.register(Curso, CursoAdmin)
 admin.site.register(RegistroCurso, RegistroCursoAdmin)
 admin.site.register(CronogramaSala)
@@ -60,7 +60,6 @@ class DiasAdmin(admin.ModelAdmin):
     form = DiasForm
 
 admin.site.register(Dias, DiasAdmin)
-
 
 class ContadorAdmin(admin.ModelAdmin):
     list_display = ('sala', 'data')
