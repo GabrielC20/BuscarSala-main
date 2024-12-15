@@ -82,11 +82,39 @@ def video_sala (request,id_sala):
     
     return render (request, 'videoSala.html',{"sala":sala})
 
-def pavilhao (request,numero_pavilhao):
+def pavilhao(request, numero_pavilhao):
+    # Mapeamento de nomes personalizados para cada pavilhão
+    nomes_pavilhoes = {
+        '1': "PAVILHÃO 01",
+        '2': "PAVILHÃO 02",
+        '3': "Área da Saúde",
+    }
     
-    salas = Sala.objects.filter(pavilhao = numero_pavilhao)
+    # Garantir que o numero_pavilhao seja uma string para o zfill
+    numero_pavilhao_str = str(numero_pavilhao)
     
-    return render (request,'pavilhao.html',{'salas':salas,'numero_pavilhao':numero_pavilhao })
+    # Buscar o nome do pavilhão ou usar um padrão se não existir
+    nome_pavilhao = nomes_pavilhoes.get(numero_pavilhao_str, f"PAVILHÃO {numero_pavilhao_str.zfill(2)}")
+
+    # Buscar salas do pavilhão
+    salas = Sala.objects.filter(pavilhao=numero_pavilhao_str)
+
+    # Para cada sala, garantir que o nome personalizado seja o que está no banco de dados
+    for sala in salas:
+        # Se o nome personalizado estiver vazio, atribuímos um valor padrão
+        if not sala.nome_personalizado:
+            sala.nome_personalizado = f"Sala {sala.numero}"
+
+    return render(request, 'pavilhao.html', {
+        'salas': salas,
+        'numero_pavilhao': numero_pavilhao_str,
+        'nome_pavilhao': nome_pavilhao,
+    })
+
+
+
+
+
 
 
 def deslogar(request):
