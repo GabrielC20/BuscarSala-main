@@ -15,16 +15,16 @@
 
 <body>
     <main>
-        <div class="pricipal">
+        <div class="pricipal-video">
             <h1 class="text-center">Caminho até sua sala</h1>
             <p>{{sala.get_pavilhao_display}}</p>
-            <p>Sala N° {{sala.numero}}</p>
+            <p>{{ sala.nome_personalizado|default:"Sala N° " }}{{ sala.numero }}</p>
             <iframe width="400" height="300" src="https://www.youtube.com/embed/{{sala.url|extrair_id_do_video}}"
                 title="YouTube video player" frameborder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                 referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            <a href="/" class="btn btn-primary mt-5">Voltar para a tela inicial</a>
         </div>
-        <a href="/" class="btn btn-primary mt-5">Voltar para a tela inicial</a>
     </main>
 
 
