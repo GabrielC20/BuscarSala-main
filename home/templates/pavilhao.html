@@ -12,19 +12,18 @@
     </head>
 
 <body>
-    <main>
-        <h1 class="text-center titulo">PAVILHÃO 0{{numero_pavilhao}}</h1>
+ <main>
+        <h1 class="text-center titulo">{{ nome_pavilhao }}</h1>
         <div class="principal">
             <div class="container mt-5">
-                <!-- Adicionada a classe "custom-buttons" ao row -->
                 <div class="row custom-buttons">
                     {% for sala in salas %}
-                        <div class="col-12 col-md-4 mb-3">
-                            <!-- Adicionada a classe "btn-custom" aos botões -->
-                            <a class="btn btn-primary btn-custom" href="{% url 'video_sala' sala.pk %}">
-                                Sala {{ sala.numero }}
-                            </a>
-                        </div>
+                    <div class="col-12 col-md-4 mb-3">
+                        <a class="btn btn-primary btn-custom" href="{% url 'video_sala' sala.pk %}">
+                            {{ sala.nome_personalizado|default:"Sala N° " }}
+                        </a>
+                    </div>
+                    
                     {% endfor %}
                 </div>
             </div>
